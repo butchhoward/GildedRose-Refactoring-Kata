@@ -1,4 +1,5 @@
 -r requirements.txt
 #
 pytest==6.2.*
-parameterized
+pylint==2.8.*
+parameterized==0.8.1
