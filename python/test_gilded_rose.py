@@ -51,7 +51,14 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
 
         gilded_rose.update_quality()
-        self.assertEqual(Item("Sulfuras, Hand of Ragnaros", 5, 5), gilded_rose.items[0])
+        self.assertEqual(Item("Sulfuras, Hand of Ragnaros", 5, 80), gilded_rose.items[0])
+
+    def test_sulfuras_quality_is_always_80(self):
+        items = [Item("Sulfuras, Hand of Ragnaros", 6, 5)]
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+        self.assertEqual(Item("Sulfuras, Hand of Ragnaros", 6, 80), gilded_rose.items[0])
 
 
     @parameterized.expand([

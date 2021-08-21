@@ -39,7 +39,8 @@ class GildedRose():
 
     @classmethod
     def __adjuster_sulfuras(cls, item):
-        pass    # sulfuras never changes
+        item.quality = 80
+        item.sell_in = item.sell_in
 
     @classmethod
     def __adjuster_backstage(cls, item):
