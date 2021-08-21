@@ -71,7 +71,6 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(Item(item_name, sell_in-1, expected_quality), gilded_rose.items[0], msg=msg)
 
 
-    @pytest.mark.xfail(reason="Not yet implemented")
     def test_conjured_items_quality_decreases_at_twice_normal_rate(self):
         item_name = "Conjured"
         items = [Item(item_name, 5, 5)]
