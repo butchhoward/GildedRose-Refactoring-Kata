@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+import pytest
 from parameterized import parameterized
 
 from gilded_rose import Item, GildedRose
@@ -68,6 +69,18 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
 
         self.assertEqual(Item(item_name, sell_in-1, expected_quality), gilded_rose.items[0], msg=msg)
+
+
+    @pytest.mark.xfail(reason="Not yet implemented")
+    def test_conjured_items_quality_decreases_at_twice_normal_rate(self):
+        item_name = "Conjured"
+        items = [Item(item_name, 5, 5)]
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+
+        self.assertEqual(Item(item_name, 4, 3), gilded_rose.items[0])
+
 
 if __name__ == '__main__':
     unittest.main()
