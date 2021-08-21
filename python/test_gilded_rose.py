@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+from parameterized import parameterized
 
 from gilded_rose import Item, GildedRose
 
@@ -24,6 +25,49 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(Item("foo", -1, 0), gilded_rose.items[0])
 
+    def test_quality_lowers_twice_after_sellby_date(self):
+        items = [Item("foo", 0, 2)]
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+        self.assertEqual(Item("foo", -1, 0), gilded_rose.items[0])
+
+    def test_quality_of_aged_brie_increases_with_age(self):
+        items = [Item("Aged Brie", 5, 2)]
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+        self.assertEqual(Item("Aged Brie", 4, 3), gilded_rose.items[0])
+
+    def test_quality_is_limited_to_50_max(self):
+        items = [Item("Aged Brie", 5, 50)]
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+        self.assertEqual(Item("Aged Brie", 4, 50), gilded_rose.items[0])
+
+    def test_sulfuras_never_changes(self):
+        items = [Item("Sulfuras, Hand of Ragnaros", 5, 5)]
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+        self.assertEqual(Item("Sulfuras, Hand of Ragnaros", 5, 5), gilded_rose.items[0])
+
+
+    @parameterized.expand([
+        ("normal case", 100, 6),
+        ("10 or closer", 10, 7),
+        ("5 or closer", 5, 8),
+        ("past date", 0, 0)
+])
+    def test_backstage_passes_are_special(self, msg, sell_in, expected_quality):
+        item_name = "Backstage passes to a TAFKAL80ETC concert"
+        items = [Item(item_name, sell_in, 5)]
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+
+        self.assertEqual(Item(item_name, sell_in-1, expected_quality), gilded_rose.items[0], msg=msg)
 
 if __name__ == '__main__':
     unittest.main()
