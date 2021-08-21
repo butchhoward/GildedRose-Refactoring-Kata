@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class GildedRose(object):
-
+#pylint: disable=too-few-public-methods
+class GildedRose():
     def __init__(self, items):
         self.items = items
         self.__adjusters = {
