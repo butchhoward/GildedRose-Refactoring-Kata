@@ -1,0 +1,10 @@
+[MASTER]
+disable=
+    missing-module-docstring,
+    missing-function-docstring,
+    missing-class-docstring,
+    line-too-long,  # remove this eventually to get right with conventions
+
+[SIMILARTIES]
+ignore-imports=yes
+min-similarity-lines=10
