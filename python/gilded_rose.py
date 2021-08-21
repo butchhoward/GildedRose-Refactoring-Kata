@@ -5,7 +5,8 @@ class GildedRose(object):
     def __init__(self, items):
         self.items = items
         self.__adjusters = {
-            "Conjured": self.__adjuster_conjured
+            "Conjured": GildedRose.__adjuster_conjured,
+            "Aged Brie": GildedRose.__adjuster_aged_brie
         }
 
     def update_quality(self):
@@ -50,8 +51,19 @@ class GildedRose(object):
 
     @classmethod
     def __adjuster_conjured(cls, item):
-        item.sell_in -= 1
+        cls.__adjust_sellin_value(item)
         cls.__adjust_quality_value(item, 2)
+
+    @classmethod
+    def __adjuster_aged_brie(cls, item):
+        cls.__adjust_sellin_value(item)
+        cls.__adjust_quality_value(item, -1)
+
+
+
+    @classmethod
+    def __adjust_sellin_value(cls, item):
+        item.sell_in -= 1
 
     @classmethod
     def __adjust_quality_value(cls, item, amount):
@@ -62,6 +74,8 @@ class GildedRose(object):
 
         if item.quality < 0:
             item.quality = 0
+        if item.quality > 50:
+            item.quality = 50
 
 #pylint: disable=too-few-public-methods
 class Item:
