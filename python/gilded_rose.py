@@ -7,7 +7,8 @@ class GildedRose(object):
         self.__adjusters = {
             "Conjured": GildedRose.__adjuster_conjured,
             "Aged Brie": GildedRose.__adjuster_aged_brie,
-            "Sulfuras, Hand of Ragnaros": GildedRose.__adjuster_sulfuras
+            "Sulfuras, Hand of Ragnaros": GildedRose.__adjuster_sulfuras,
+            "Backstage passes to a TAFKAL80ETC concert": GildedRose.__adjuster_backstage,
         }
 
     def update_quality(self):
@@ -57,6 +58,17 @@ class GildedRose(object):
     def __adjuster_sulfuras(cls, item):
         pass    # sulfuras never changes
 
+    @classmethod
+    def __adjuster_backstage(cls, item):
+        cls.__adjust_sellin_value(item)
+        if item.sell_in <= 0:
+            item.quality = 0
+        elif item.sell_in < 5:
+            cls.__adjust_quality_value(item, -3)
+        elif item.sell_in < 10:
+            cls.__adjust_quality_value(item, -2)
+        else:
+            cls.__adjust_quality_value(item, -1)
 
     @classmethod
     def __adjust_sellin_value(cls, item):
