@@ -6,7 +6,8 @@ class GildedRose(object):
         self.items = items
         self.__adjusters = {
             "Conjured": GildedRose.__adjuster_conjured,
-            "Aged Brie": GildedRose.__adjuster_aged_brie
+            "Aged Brie": GildedRose.__adjuster_aged_brie,
+            "Sulfuras, Hand of Ragnaros": GildedRose.__adjuster_sulfuras
         }
 
     def update_quality(self):
@@ -55,6 +56,9 @@ class GildedRose(object):
         cls.__adjust_sellin_value(item)
         cls.__adjust_quality_value(item, -1)
 
+    @classmethod
+    def __adjuster_sulfuras(cls, item):
+        pass    # sulfuras never changes
 
 
     @classmethod
