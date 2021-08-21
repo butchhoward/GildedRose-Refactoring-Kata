@@ -3,3 +3,13 @@
 .coverage
 .idea/
 *.iml
+
+
+.idea
+.run
+**/.vscode/*
+**/.DS_Store
+**/__pycache__
+**/venv/
+*.pyc
+.pytest_cache/
