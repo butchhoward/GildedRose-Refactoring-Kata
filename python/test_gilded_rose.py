@@ -98,3 +98,60 @@ def test_backstage_passes_are_special(msg, sell_in, expected_quality):
     gilded_rose.update_quality()
 
     assert ItemMatcher(Item(item_name, sell_in-1, expected_quality)) == gilded_rose.items[0], msg
+
+
+
+class ItemListMatcher: #pylint: disable=too-few-public-methods
+    expected: list
+
+    def __init__(self, expected):
+        self.expected = expected
+
+    def __repr__(self):
+        return str(self.expected)
+
+    def __eq__(self, other):
+        if len(self.expected) != len(other):
+            return False
+
+        for index in range(len(self.expected)):
+            if self.expected[index].name != other[index].name or \
+                    self.expected[index].sell_in != other[index].sell_in or \
+                    self.expected[index].quality != other[index].quality:
+                return False
+        return True
+
+
+
+def test_original_data_results():
+    items = [
+        Item("+5 Dexterity Vest", 10, 20),
+        Item("Aged Brie", 2, 0),
+        Item("Elixir of the Mongoose", 5, 7),
+        Item("Sulfuras, Hand of Ragnaros", 0, 80),
+        Item("Sulfuras, Hand of Ragnaros", -1, 80),
+        Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+        Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+        Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+        Item("Conjured Mana Cake", 3, 6),
+      ]
+
+    gilded_rose = GildedRose(items)
+
+    gilded_rose.update_quality()
+
+    expected_items = [
+        Item("+5 Dexterity Vest", 9, 19),
+        Item("Aged Brie", 1, 1),
+        Item("Elixir of the Mongoose", 4, 6),
+        Item("Sulfuras, Hand of Ragnaros", 0, 80),
+        Item("Sulfuras, Hand of Ragnaros", -1, 80),
+        Item("Backstage passes to a TAFKAL80ETC concert", 14, 21),
+        Item("Backstage passes to a TAFKAL80ETC concert", 9, 50),
+        Item("Backstage passes to a TAFKAL80ETC concert", 4, 50),
+        Item("Conjured Mana Cake", 2, 5)
+    ]
+
+    assert ItemListMatcher(expected_items) == items
+
+
