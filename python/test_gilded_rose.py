@@ -1,9 +1,22 @@
 # -*- coding: utf-8 -*-
 import unittest
-from parameterized import parameterized
+import pytest
 
 from gilded_rose import Item, GildedRose
 
+class ItemMatcher: #pylint: disable=too-few-public-methods
+    expected: Item
+
+    def __init__(self, expected):
+        self.expected = expected
+
+    def __repr__(self):
+        return str(self.expected)
+
+    def __eq__(self, other):
+        return self.expected.name == other.name and \
+                self.expected.sell_in == other.sell_in and \
+                self.expected.quality == other.quality
 
 class GildedRoseTest(unittest.TestCase):
     def setUp(self):
@@ -61,22 +74,6 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(Item("Sulfuras, Hand of Ragnaros", 6, 80), gilded_rose.items[0])
 
 
-    @parameterized.expand([
-        ("normal case", 100, 6),
-        ("10 or closer", 10, 7),
-        ("5 or closer", 5, 8),
-        ("past date", 0, 0)
-])
-    def test_backstage_passes_are_special(self, msg, sell_in, expected_quality):
-        item_name = "Backstage passes to a TAFKAL80ETC concert"
-        items = [Item(item_name, sell_in, 5)]
-        gilded_rose = GildedRose(items)
-
-        gilded_rose.update_quality()
-
-        self.assertEqual(Item(item_name, sell_in-1, expected_quality), gilded_rose.items[0], msg=msg)
-
-
     def test_conjured_items_quality_decreases_at_twice_normal_rate(self):
         item_name = "Conjured"
         items = [Item(item_name, 5, 5)]
@@ -84,8 +81,20 @@ class GildedRoseTest(unittest.TestCase):
 
         gilded_rose.update_quality()
 
-        self.assertEqual(Item(item_name, 4, 3), gilded_rose.items[0])
+        self.assertEqual(ItemMatcher(Item(item_name, 4, 3)), gilded_rose.items[0])
 
 
-if __name__ == '__main__':
-    unittest.main()
+@pytest.mark.parametrize("msg, sell_in, expected_quality", [
+    ("normal case", 100, 6),
+    ("10 or closer", 10, 7),
+    ("5 or closer", 5, 8),
+    ("past date", 0, 0)
+])
+def test_backstage_passes_are_special(msg, sell_in, expected_quality):
+    item_name = "Backstage passes to a TAFKAL80ETC concert"
+    items = [Item(item_name, sell_in, 5)]
+    gilded_rose = GildedRose(items)
+
+    gilded_rose.update_quality()
+
+    assert ItemMatcher(Item(item_name, sell_in-1, expected_quality)) == gilded_rose.items[0], msg
