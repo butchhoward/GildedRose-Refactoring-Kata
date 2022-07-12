@@ -32,10 +32,7 @@ void GildedRose::updateItemQuality(Item& item)
         {
             if (item.quality > 0)
             {
-                if (item.name != SULFRAS)
-                {
-                    item.quality = item.quality - 1;
-                }
+                item.quality = item.quality - 1;
             }
         }
         else
@@ -65,10 +62,7 @@ void GildedRose::updateItemQuality(Item& item)
             }
         }
 
-        if (item.name != SULFRAS)
-        {
-            item.sellIn = item.sellIn - 1;
-        }
+        item.sellIn = item.sellIn - 1;
 
         if (item.sellIn < 0)
         {
@@ -78,10 +72,7 @@ void GildedRose::updateItemQuality(Item& item)
                 {
                     if (item.quality > 0)
                     {
-                        if (item.name != SULFRAS)
-                        {
-                            item.quality = item.quality - 1;
-                        }
+                        item.quality = item.quality - 1;
                     }
                 }
                 else
