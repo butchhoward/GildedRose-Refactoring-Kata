@@ -29,7 +29,7 @@ endif()
 add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 
 # uncomment this line to enable coverage measurements using gcov
-# set(CMAKE_CXX_FLAGS "--coverage")
+set(CMAKE_CXX_FLAGS "--coverage")
 
 enable_testing()
 add_subdirectory(src)
