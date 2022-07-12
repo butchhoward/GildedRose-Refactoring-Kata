@@ -20,11 +20,35 @@ void UpdateSulfurasQuality(Item& item)
 {
 }
 
+void UpdateAgedBrieQuality(Item& item)
+{
+    if (item.quality < 50)
+    {
+        item.quality = item.quality + 1;
+    }
+
+    item.sellIn = item.sellIn - 1;
+
+    if (item.sellIn < 0)
+    {
+        if (item.quality < 50)
+        {
+            item.quality = item.quality + 1;
+        }
+    }
+
+}
+
 void GildedRose::updateItemQuality(Item& item)
 {
         if (item.name == SULFRAS)
         {
             return UpdateSulfurasQuality(item);
+        }
+
+        if (item.name == AGED_BRIE)
+        {
+            return UpdateAgedBrieQuality(item);
         }
 
 
