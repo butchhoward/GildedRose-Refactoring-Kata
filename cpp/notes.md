@@ -11,7 +11,7 @@ rm -rf build && mkdir build && cd build && cmake ..
 ## Build and Test, generating coverage remote
 
 ```shell
-make && find . -name "*.gcda" -print0 | xargs -0 rm; ./test/cpp_googletest_unittest/GildedRoseGoogletestUnitTests; find . -name 'GildedRose.cc.gcda' | xargs gcov &>/dev/null
+make && find . -name "*.gcda" -print0 | xargs -0 rm; ./test/cpp_googletest_unittest/GildedRoseGoogletestUnitTests; find . -name 'GildedRose.cc.gcda' | xargs gcov -b &>/dev/null
 ```
 
 Edit the coverage report file [`build/GildedRose.cc.gcov`](./build/GildedRose.cc.gcov) to see the results.
