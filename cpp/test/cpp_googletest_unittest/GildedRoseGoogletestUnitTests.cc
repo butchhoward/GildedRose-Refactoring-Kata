@@ -79,3 +79,14 @@ TEST(GildedRoseTest, BrieItemWithSellinLtZeroAndQualityGtZero)
     EXPECT_EQ(-2, app.items[0].sellIn);
     EXPECT_EQ(25, app.items[0].quality);
 }
+
+TEST(GildedRoseTest, PassesItemWithSellinLtZeroAndQualityGtZero)
+{
+    vector<Item> items;
+    items.push_back(Item("Backstage passes to a TAFKAL80ETC concert", -1, 23));
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ("Backstage passes to a TAFKAL80ETC concert", app.items[0].name);
+    EXPECT_EQ(-2, app.items[0].sellIn);
+    EXPECT_EQ(0, app.items[0].quality);
+}
