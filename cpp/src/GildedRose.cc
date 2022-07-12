@@ -16,8 +16,18 @@ void GildedRose::updateQuality()
     }
 }
 
+void UpdateSulfurasQuality(Item& item)
+{
+}
+
 void GildedRose::updateItemQuality(Item& item)
 {
+        if (item.name == SULFRAS)
+        {
+            return UpdateSulfurasQuality(item);
+        }
+
+
         if (item.name != AGED_BRIE && item.name != TAFKAL80ETC)
         {
             if (item.quality > 0)
