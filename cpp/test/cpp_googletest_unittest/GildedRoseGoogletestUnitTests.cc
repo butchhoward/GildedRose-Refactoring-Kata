@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include "GildedRose.h"
 
-const char* NORMAL="Normal";
-const char* SULFRAS="Sulfuras, Hand of Ragnaros";
-const char* AGED_BRIE="Aged Brie";
-const char* TAFKAL80ETC="Backstage passes to a TAFKAL80ETC concert";
+static const char* NORMAL="Normal";
+static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
+static const char* AGED_BRIE="Aged Brie";
+static const char* TAFKAL80ETC="Backstage passes to a TAFKAL80ETC concert";
 
 TEST(GildedRoseTest, NormalItemWithZeroSellinAndQuality)
 {
@@ -125,6 +125,17 @@ TEST(GildedRoseTest, PassesItemWithSellinLtZeroAndQualityGtZero)
     EXPECT_EQ(TAFKAL80ETC, app.items[0].name);
     EXPECT_EQ(-2, app.items[0].sellIn);
     EXPECT_EQ(0, app.items[0].quality);
+}
+
+TEST(GildedRoseTest, PassesItemWithSellinGtZeroAndQualityGt50)
+{
+    vector<Item> items;
+    items.push_back(Item(TAFKAL80ETC, 10, 55));
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(TAFKAL80ETC, app.items[0].name);
+    EXPECT_EQ(9, app.items[0].sellIn);
+    EXPECT_EQ(55, app.items[0].quality);
 }
 
 TEST(GildedRoseTest, PassesItemWithSellinGt11AndQualityLt50)
