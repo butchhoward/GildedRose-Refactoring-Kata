@@ -170,3 +170,53 @@ TEST(GildedRoseTest, PassesItemWithSellinLt6AndQuality49)
     EXPECT_EQ(4, app.items[0].sellIn);
     EXPECT_EQ(50, app.items[0].quality);
 }
+
+
+
+
+static const char* CONJURED="Conjured";
+
+
+TEST(GildedRoseTest, ConjuredItemWithZeroSellinAndQuality)
+{
+    vector<Item> items;
+    items.push_back(Item(CONJURED, 0, 0));
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(CONJURED, app.items[0].name);
+    EXPECT_EQ(-1, app.items[0].sellIn);
+    EXPECT_EQ(0, app.items[0].quality);
+}
+
+TEST(GildedRoseTest, ConjuredItemWithSellinGtZeroAndQualityZero)
+{
+    vector<Item> items;
+    items.push_back(Item(CONJURED, 22, 0));
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(CONJURED, app.items[0].name);
+    EXPECT_EQ(21, app.items[0].sellIn);
+    EXPECT_EQ(0, app.items[0].quality);
+}
+
+TEST(GildedRoseTest, ConjuredItemWithSellinGtZeroAndQualityGtZero)
+{
+    vector<Item> items;
+    items.push_back(Item(CONJURED, 22, 23));
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(CONJURED, app.items[0].name);
+    EXPECT_EQ(21, app.items[0].sellIn);
+    EXPECT_EQ(21, app.items[0].quality);
+}
+
+TEST(GildedRoseTest, ConjuredItemWithSellinLtZeroAndQualityGtZero)
+{
+    vector<Item> items;
+    items.push_back(Item(CONJURED, -1, 23));
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(CONJURED, app.items[0].name);
+    EXPECT_EQ(-2, app.items[0].sellIn);
+    EXPECT_EQ(19, app.items[0].quality);
+}
