@@ -46,7 +46,6 @@ TEST(GildedRoseTest, NormalItemWithSellinLtZeroAndQualityGtZero)
     EXPECT_EQ(21, app.items[0].quality);
 }
 
-
 TEST(GildedRoseTest, SulfurasItemWithSellinGtZeroAndQualityZero)
 {
     vector<Item> items;
@@ -67,4 +66,16 @@ TEST(GildedRoseTest, SulfurasItemWithSellinGtZeroAndQualityGtZero)
     EXPECT_EQ("Sulfuras, Hand of Ragnaros", app.items[0].name);
     EXPECT_EQ(22, app.items[0].sellIn);
     EXPECT_EQ(23, app.items[0].quality);
+}
+
+
+TEST(GildedRoseTest, BrieItemWithSellinLtZeroAndQualityGtZero)
+{
+    vector<Item> items;
+    items.push_back(Item("Aged Brie", -1, 23));
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ("Aged Brie", app.items[0].name);
+    EXPECT_EQ(-2, app.items[0].sellIn);
+    EXPECT_EQ(25, app.items[0].quality);
 }
