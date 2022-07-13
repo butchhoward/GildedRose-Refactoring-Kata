@@ -38,6 +38,9 @@ public:
         }
 
     }
+
+    static std::string ITEM_NAME;
+
 };
 
 #endif

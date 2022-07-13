@@ -26,12 +26,12 @@ void GildedRose::updateQuality()
 
 NamedItem* item_producer(const Item& item)
 {
-    if (item.name == SULFRAS)
+    if (item.name == SulfurasItem::ITEM_NAME )
     {
         return new SulfurasItem(item);
     }
 
-    if (item.name == CONJURED)
+    if (item.name == ConjuredItem::ITEM_NAME)
     {
         return new ConjuredItem(item);
     }

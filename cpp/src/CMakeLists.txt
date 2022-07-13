@@ -4,5 +4,7 @@ target_sources(${SRC_LIB_NAME} PRIVATE
     GildedRose.cc
     AgedBrieItem.cc
     BackstagePassesItem.cc
+    SulfurasItem.cc
+    ConjuredItem.cc
     )
 target_include_directories(${SRC_LIB_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
