@@ -6,6 +6,9 @@ static const char* TAFKAL80ETC="Backstage passes to a TAFKAL80ETC concert";
 
 static const char* CONJURED="Conjured";
 
+
+
+
 GildedRose::GildedRose(vector<Item> & items) : items(items)
 {}
 
@@ -17,23 +20,54 @@ void GildedRose::updateQuality()
     }
 }
 
-void UpdateNormalItemQuality(Item& item)
+
+class NamedItem
 {
-    if (item.quality > 0)
+public:
+    NamedItem(string name, int sellIn, int quality) :
+        item(name, sellIn, quality)
     {
-        item.quality = item.quality - 1;
     }
 
-    item.sellIn = item.sellIn - 1;
+    virtual void updateQuality() = 0;
 
-    if (item.sellIn < 0)
+    operator Item() const
+    {
+        return item;
+    }
+
+protected:
+    Item item;
+};
+
+class NormalItem : public NamedItem
+{
+public:
+    NormalItem(const Item& item) :
+        NamedItem(item.name, item.sellIn, item.quality)
+        {
+        }
+
+    virtual void updateQuality()
     {
         if (item.quality > 0)
         {
             item.quality = item.quality - 1;
         }
+
+        item.sellIn = item.sellIn - 1;
+
+        if (item.sellIn < 0)
+        {
+            if (item.quality > 0)
+            {
+                item.quality = item.quality - 1;
+            }
+        }
     }
-}
+
+};
+
 
 void UpdateConjuredItemQuality(Item& item)
 {
@@ -129,5 +163,8 @@ void GildedRose::updateItemQuality(Item& item)
         return UpdateConjuredItemQuality(item);
     }
 
-    return UpdateNormalItemQuality(item);
+
+    NormalItem normal_item(item);
+    normal_item.updateQuality();
+    item = normal_item;
 }
