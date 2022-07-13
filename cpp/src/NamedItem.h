@@ -9,6 +9,10 @@ public:
         item(name, sellIn, quality)
     {
     }
+    virtual ~NamedItem()
+    {
+
+    }
 
     virtual void updateQuality() = 0;
 

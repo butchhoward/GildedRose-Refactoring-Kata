@@ -15,7 +15,12 @@ public:
         {
         }
 
-    virtual void updateQuality()
+    virtual ~ConjuredItem()
+    {
+
+    }
+
+    void updateQuality()
     {
         if (item.quality > 0)
         {

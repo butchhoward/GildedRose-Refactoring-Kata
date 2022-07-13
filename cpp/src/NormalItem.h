@@ -9,6 +9,10 @@ public:
         NamedItem(item.name, item.sellIn, item.quality)
         {
         }
+    virtual ~NormalItem()
+    {
+
+    }
 
     virtual void updateQuality()
     {

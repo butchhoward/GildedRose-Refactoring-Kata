@@ -73,16 +73,23 @@ void UpdateTAFKAL80ETCQuality(Item &item)
     }
 }
 
-void GildedRose::updateItemQuality(Item& item)
+NamedItem* item_producer(const Item& item)
 {
     if (item.name == SULFRAS)
     {
-        SulfurasItem sulfuras_item(item);
-        sulfuras_item.updateQuality();
-        item = sulfuras_item;
-        return;
+        return new SulfurasItem(item);
     }
 
+    if (item.name == CONJURED)
+    {
+        return new ConjuredItem(item);
+    }
+
+    return new NormalItem(item);
+}
+
+void GildedRose::updateItemQuality(Item& item)
+{
     if (item.name == AGED_BRIE)
     {
         return UpdateAgedBrieQuality(item);
@@ -93,16 +100,9 @@ void GildedRose::updateItemQuality(Item& item)
         return UpdateTAFKAL80ETCQuality(item);
     }
 
-    if (item.name == CONJURED)
-    {
-        ConjuredItem conjured_item(item);
-        conjured_item.updateQuality();
-        item = conjured_item;
-        return;
-    }
+    NamedItem* named_item = item_producer(item);
+    named_item->updateQuality();
+    item = Item(*named_item);
+    delete named_item;
 
-
-    NormalItem normal_item(item);
-    normal_item.updateQuality();
-    item = normal_item;
 }

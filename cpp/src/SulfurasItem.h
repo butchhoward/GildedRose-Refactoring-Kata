@@ -14,6 +14,10 @@ public:
         NamedItem("Sulfuras, Hand of Ragnaros", sellIn, quality)
         {
         }
+    virtual ~SulfurasItem()
+    {
+
+    }
 
     virtual void updateQuality()
     {
