@@ -1,11 +1,13 @@
 #ifndef NAMEDITEM_H
 #define NAMEDITEM_H
 #include "GildedRose.h"
+#include <string>
+
 
 class NamedItem
 {
 public:
-    NamedItem(string name, int sellIn, int quality) :
+    NamedItem(std::string name, int sellIn, int quality) :
         item(name, sellIn, quality)
     {
     }

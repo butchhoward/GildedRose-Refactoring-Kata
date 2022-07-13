@@ -2,7 +2,6 @@
 #define AGEDBRIE_ITEM_H
 #include "NamedItem.h"
 
-#define ITEM_NAME "Aged Brie"
 
 class AgedBrieItem : public NamedItem
 {
@@ -39,7 +38,10 @@ public:
         }
     }
 
+    static std::string ITEM_NAME;
+
 };
+
 
 
 #endif

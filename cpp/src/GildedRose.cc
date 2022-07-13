@@ -3,6 +3,7 @@
 #include "SulfurasItem.h"
 #include "ConjuredItem.h"
 #include "AgedBrieItem.h"
+#include "BackstagePassesItem.h"
 
 static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
 static const char* AGED_BRIE="Aged Brie";
@@ -23,37 +24,6 @@ void GildedRose::updateQuality()
     }
 }
 
-void UpdateTAFKAL80ETCQuality(Item &item)
-{
-    if (item.quality < 50)
-    {
-        item.quality = item.quality + 1;
-
-        if (item.sellIn < 11)
-        {
-            if (item.quality < 50)
-            {
-                item.quality = item.quality + 1;
-            }
-        }
-
-        if (item.sellIn < 6)
-        {
-            if (item.quality < 50)
-            {
-                item.quality = item.quality + 1;
-            }
-        }
-    }
-
-    item.sellIn = item.sellIn - 1;
-
-    if (item.sellIn < 0)
-    {
-        item.quality = item.quality - item.quality;
-    }
-}
-
 NamedItem* item_producer(const Item& item)
 {
     if (item.name == SULFRAS)
@@ -66,9 +36,14 @@ NamedItem* item_producer(const Item& item)
         return new ConjuredItem(item);
     }
 
-    if (item.name == AGED_BRIE)
+    if (item.name == AgedBrieItem::ITEM_NAME)
     {
         return new AgedBrieItem(item);
+    }
+
+    if (item.name == BackstagePassesItem::ITEM_NAME)
+    {
+        return new BackstagePassesItem(item);
     }
 
     return new NormalItem(item);
@@ -76,14 +51,8 @@ NamedItem* item_producer(const Item& item)
 
 void GildedRose::updateItemQuality(Item& item)
 {
-    if (item.name == TAFKAL80ETC)
-    {
-        return UpdateTAFKAL80ETCQuality(item);
-    }
-
     NamedItem* named_item = item_producer(item);
     named_item->updateQuality();
     item = Item(*named_item);
     delete named_item;
-
 }
