@@ -1,4 +1,5 @@
 #include "GildedRose.h"
+#include "NamedItem.h"
 
 static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
 static const char* AGED_BRIE="Aged Brie";
@@ -20,25 +21,6 @@ void GildedRose::updateQuality()
     }
 }
 
-
-class NamedItem
-{
-public:
-    NamedItem(string name, int sellIn, int quality) :
-        item(name, sellIn, quality)
-    {
-    }
-
-    virtual void updateQuality() = 0;
-
-    operator Item() const
-    {
-        return item;
-    }
-
-protected:
-    Item item;
-};
 
 class NormalItem : public NamedItem
 {

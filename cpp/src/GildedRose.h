@@ -1,3 +1,6 @@
+#ifndef GILDED_ROSE_H
+#define GILDED_ROSE_H
+
 #include <string>
 #include <vector>
 
@@ -24,3 +27,5 @@ public:
 private:
     void updateItemQuality(Item& item);
 };
+
+#endif
