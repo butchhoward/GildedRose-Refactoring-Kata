@@ -1,5 +1,5 @@
 #include "GildedRose.h"
-#include "NamedItem.h"
+#include "NormalItem.h"
 
 static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
 static const char* AGED_BRIE="Aged Brie";
@@ -22,33 +22,6 @@ void GildedRose::updateQuality()
 }
 
 
-class NormalItem : public NamedItem
-{
-public:
-    NormalItem(const Item& item) :
-        NamedItem(item.name, item.sellIn, item.quality)
-        {
-        }
-
-    virtual void updateQuality()
-    {
-        if (item.quality > 0)
-        {
-            item.quality = item.quality - 1;
-        }
-
-        item.sellIn = item.sellIn - 1;
-
-        if (item.sellIn < 0)
-        {
-            if (item.quality > 0)
-            {
-                item.quality = item.quality - 1;
-            }
-        }
-    }
-
-};
 
 
 void UpdateConjuredItemQuality(Item& item)
