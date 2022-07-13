@@ -5,12 +5,9 @@
 #include "AgedBrieItem.h"
 #include "BackstagePassesItem.h"
 
-static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
-static const char* AGED_BRIE="Aged Brie";
-static const char* TAFKAL80ETC="Backstage passes to a TAFKAL80ETC concert";
-static const char* CONJURED="Conjured";
-
-
+#include <map>
+#include <functional>
+#include <memory>
 
 
 GildedRose::GildedRose(vector<Item> & items) : items(items)
@@ -24,35 +21,35 @@ void GildedRose::updateQuality()
     }
 }
 
-NamedItem* item_producer(const Item& item)
+
+template<class T>
+unique_ptr<NamedItem> create_item(const Item& item)
 {
-    if (item.name == SulfurasItem::ITEM_NAME )
+    return unique_ptr<NamedItem>(new T(item));
+};
+
+unique_ptr<NamedItem> item_producer(const Item& item)
+{
+    typedef std::map<std::string, std::function<unique_ptr<NamedItem>()> > Dispatcher;
+    Dispatcher dispatcher;
+
+    dispatcher[SulfurasItem::ITEM_NAME] = [item](){ return create_item<SulfurasItem>(item); };
+    dispatcher[ConjuredItem::ITEM_NAME] = [item](){ return create_item<ConjuredItem>(item); };
+    dispatcher[AgedBrieItem::ITEM_NAME] = [item](){ return create_item<AgedBrieItem>(item); };
+    dispatcher[BackstagePassesItem::ITEM_NAME] = [item](){ return create_item<BackstagePassesItem>(item); };
+
+    Dispatcher::iterator creator = dispatcher.find(item.name);
+    if (creator != dispatcher.end())
     {
-        return new SulfurasItem(item);
+        return creator->second();
     }
 
-    if (item.name == ConjuredItem::ITEM_NAME)
-    {
-        return new ConjuredItem(item);
-    }
-
-    if (item.name == AgedBrieItem::ITEM_NAME)
-    {
-        return new AgedBrieItem(item);
-    }
-
-    if (item.name == BackstagePassesItem::ITEM_NAME)
-    {
-        return new BackstagePassesItem(item);
-    }
-
-    return new NormalItem(item);
+    return create_item<NormalItem>(item);
 }
 
 void GildedRose::updateItemQuality(Item& item)
 {
-    NamedItem* named_item = item_producer(item);
+    auto named_item = item_producer(item);
     named_item->updateQuality();
     item = Item(*named_item);
-    delete named_item;
 }
