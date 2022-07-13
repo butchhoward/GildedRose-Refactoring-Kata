@@ -20,24 +20,8 @@ public:
 
     }
 
-    void updateQuality()
-    {
-        if (item.quality > 0)
-        {
-            item.quality = item.quality - 2;
-        }
+    void updateQuality();
 
-        item.sellIn = item.sellIn - 1;
-
-        if (item.sellIn < 0)
-        {
-            if (item.quality > 0)
-            {
-                item.quality = item.quality - 2;
-            }
-        }
-
-    }
 
     static std::string ITEM_NAME;
 

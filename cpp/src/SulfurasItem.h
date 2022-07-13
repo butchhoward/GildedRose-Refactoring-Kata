@@ -19,9 +19,8 @@ public:
 
     }
 
-    virtual void updateQuality()
-    {
-    }
+    virtual void updateQuality();
+
 
     static std::string ITEM_NAME;
 

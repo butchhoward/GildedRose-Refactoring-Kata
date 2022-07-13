@@ -10,18 +10,7 @@
 #include <memory>
 
 
-GildedRose::GildedRose(vector<Item> & items) : items(items)
-{}
-
-void GildedRose::updateQuality()
-{
-    for (int i = 0; i < items.size(); i++)
-    {
-        updateItemQuality(items[i]);
-    }
-}
-
-
+namespace {
 template<class T>
 unique_ptr<NamedItem> create_item(const Item& item)
 {
@@ -47,9 +36,23 @@ unique_ptr<NamedItem> item_producer(const Item& item)
     return create_item<NormalItem>(item);
 }
 
-void GildedRose::updateItemQuality(Item& item)
+void updateItemQuality(Item& item)
 {
     auto named_item = item_producer(item);
     named_item->updateQuality();
     item = Item(*named_item);
+}
+
+}
+
+
+GildedRose::GildedRose(vector<Item> & items) : items(items)
+{}
+
+void GildedRose::updateQuality()
+{
+    for (int i = 0; i < items.size(); i++)
+    {
+        updateItemQuality(items[i]);
+    }
 }

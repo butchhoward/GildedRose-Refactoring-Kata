@@ -23,9 +23,6 @@ public:
     GildedRose(vector<Item> & items);
 
     void updateQuality();
-
-private:
-    void updateItemQuality(Item& item);
 };
 
 #endif
