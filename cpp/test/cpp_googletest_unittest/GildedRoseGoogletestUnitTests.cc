@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "GildedRose.h"
 
+using namespace std;
+
 static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
 static const char* AGED_BRIE="Aged Brie";
 static const char* TAFKAL80ETC="Backstage passes to a TAFKAL80ETC concert";

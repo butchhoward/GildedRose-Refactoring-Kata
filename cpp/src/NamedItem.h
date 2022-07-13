@@ -1,6 +1,6 @@
 #ifndef NAMEDITEM_H
 #define NAMEDITEM_H
-#include "GildedRose.h"
+#include "Item.h"
 #include <string>
 
 

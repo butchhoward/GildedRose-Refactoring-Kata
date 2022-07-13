@@ -1,4 +1,5 @@
 #include "GildedRose.h"
+#include "NamedItem.h"
 #include "NormalItem.h"
 #include "SulfurasItem.h"
 #include "ConjuredItem.h"
@@ -12,14 +13,14 @@
 
 namespace {
 template<class T>
-unique_ptr<NamedItem> create_item(const Item& item)
+std::unique_ptr<NamedItem> create_item(const Item& item)
 {
-    return unique_ptr<NamedItem>(new T(item));
+    return std::unique_ptr<NamedItem>(new T(item));
 };
 
-unique_ptr<NamedItem> item_producer(const Item& item)
+std::unique_ptr<NamedItem> item_producer(const Item& item)
 {
-    typedef std::map<std::string, std::function<unique_ptr<NamedItem>()> > Dispatcher;
+    typedef std::map<std::string, std::function<std::unique_ptr<NamedItem>()> > Dispatcher;
     Dispatcher dispatcher;
 
     dispatcher[SulfurasItem::ITEM_NAME] = [item](){ return create_item<SulfurasItem>(item); };
@@ -46,7 +47,7 @@ void updateItemQuality(Item& item)
 }
 
 
-GildedRose::GildedRose(vector<Item> & items) : items(items)
+GildedRose::GildedRose(std::vector<Item> & items) : items(items)
 {}
 
 void GildedRose::updateQuality()
