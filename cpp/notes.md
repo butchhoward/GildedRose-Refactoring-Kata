@@ -11,10 +11,17 @@ rm -rf build && mkdir build && cd build && cmake ..
 ## Build and Test, generating coverage remote
 
 ```shell
-make && { find . -name "*.gcda" -print0 | xargs -0 rm; ./test/cpp_googletest_unittest/GildedRoseGoogletestUnitTests; find . -name 'GildedRose.cc.gcda' | xargs gcov -b &>/dev/null; }
+make && { find . -name "*.gcda" -print0 | xargs -0 rm; ./test/cpp_googletest_unittest/GildedRoseGoogletestUnitTests; find . -name '*.gcda' | xargs gcov -b &>/dev/null; }
 ```
 
-Edit the coverage report file [`build/GildedRose.cc.gcov`](./build/GildedRose.cc.gcov) to see the results.
+Edit the coverage reports for the main files to see the results (there are many `.gcov` files in the build folder after thnis, but these are the only ones that matter).
+
+* [`build/GildedRose.cc.gcov`](./build/GildedRose.cc.gcov) (has `#####` lines and 0% branches, but those are all sideaffects of templates and `std`)
+* [`build/NormalItem.cc.gcov`](./build/NormalItem.cc.gcov)
+* [`build/ConjuredItem.cc.gcov`](./build/ConjuredItem.cc.gcov)
+* [`build/SulfurasItem.cc.gcov`](./build/SulfurasItem.cc.gcov)
+* [`build/BackstagePassesItem.cc.gcov`](./build/BackstagePassesItem.cc.gcov)
+* [`build/AgedBrieItem.cc.gcov`](./build/AgedBrieItem.cc.gcov)
 
 Lines marked with `#####` have no code coverage during the test runs.
 
