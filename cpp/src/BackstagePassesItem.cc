@@ -9,7 +9,7 @@ void BackstagePassesItem::updateQuality()
     {
         item.quality = item.quality + 1;
 
-        if (item.sellIn < 11)
+        if (item.sellIn < 10)
         {
             if (item.quality < 50)
             {
@@ -17,7 +17,7 @@ void BackstagePassesItem::updateQuality()
             }
         }
 
-        if (item.sellIn < 6)
+        if (item.sellIn < 5)
         {
             if (item.quality < 50)
             {
@@ -26,7 +26,6 @@ void BackstagePassesItem::updateQuality()
         }
     }
 
-    item.sellIn = item.sellIn - 1;
 
     if (item.sellIn < 0)
     {
@@ -36,5 +35,5 @@ void BackstagePassesItem::updateQuality()
 
 void BackstagePassesItem::updateSellIn()
 {
-
+    item.sellIn = item.sellIn - 1;
 }

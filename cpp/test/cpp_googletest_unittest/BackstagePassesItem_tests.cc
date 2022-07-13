@@ -31,6 +31,15 @@ TEST(BackstagePassesTest, PassesItemWithSellinGt11AndQualityLt50)
     EXPECT_EQ(41, Item(item).quality);
 }
 
+TEST(BackstagePassesTest, PassesItemWithSellinEq11AndQualityLt50)
+{
+    BackstagePassesItem item(11, 40);
+    item.updateItem();
+    EXPECT_EQ(TAFKAL80ETC, Item(item).name);
+    EXPECT_EQ(10, Item(item).sellIn);
+    EXPECT_EQ(41, Item(item).quality);
+}
+
 TEST(BackstagePassesTest, PassesItemWithSellinLt11AndQuality49)
 {
     BackstagePassesItem item(10, 49);
