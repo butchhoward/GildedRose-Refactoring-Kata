@@ -1,54 +1,10 @@
 #include <gtest/gtest.h>
 #include "GildedRose.h"
 
-static const char* NORMAL="Normal";
 static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
 static const char* AGED_BRIE="Aged Brie";
 static const char* TAFKAL80ETC="Backstage passes to a TAFKAL80ETC concert";
 
-TEST(GildedRoseTest, NormalItemWithZeroSellinAndQuality)
-{
-    vector<Item> items;
-    items.push_back(Item(NORMAL, 0, 0));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(-1, app.items[0].sellIn);
-    EXPECT_EQ(0, app.items[0].quality);
-}
-
-TEST(GildedRoseTest, NormalItemWithSellinGtZeroAndQualityZero)
-{
-    vector<Item> items;
-    items.push_back(Item(NORMAL, 22, 0));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(21, app.items[0].sellIn);
-    EXPECT_EQ(0, app.items[0].quality);
-}
-
-TEST(GildedRoseTest, NormalItemWithSellinGtZeroAndQualityGtZero)
-{
-    vector<Item> items;
-    items.push_back(Item(NORMAL, 22, 23));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(21, app.items[0].sellIn);
-    EXPECT_EQ(22, app.items[0].quality);
-}
-
-TEST(GildedRoseTest, NormalItemWithSellinLtZeroAndQualityGtZero)
-{
-    vector<Item> items;
-    items.push_back(Item(NORMAL, -1, 23));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(-2, app.items[0].sellIn);
-    EXPECT_EQ(21, app.items[0].quality);
-}
 
 TEST(GildedRoseTest, SulfurasItemWithSellinGtZeroAndQualityZero)
 {
@@ -170,7 +126,6 @@ TEST(GildedRoseTest, PassesItemWithSellinLt6AndQuality49)
     EXPECT_EQ(4, app.items[0].sellIn);
     EXPECT_EQ(50, app.items[0].quality);
 }
-
 
 
 
