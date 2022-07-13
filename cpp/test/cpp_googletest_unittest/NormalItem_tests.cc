@@ -1,48 +1,44 @@
 #include <gtest/gtest.h>
-#include "GildedRose.h"
+#include <NormalItem.h>
 
 static const char* NORMAL="Normal";
 
-TEST(GildedRoseTest, NormalItemWithZeroSellinAndQuality)
+TEST(NormalItemTest, NormalItemWithZeroSellinAndQuality)
 {
-    vector<Item> items;
-    items.push_back(Item(NORMAL, 0, 0));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(-1, app.items[0].sellIn);
-    EXPECT_EQ(0, app.items[0].quality);
+
+    NormalItem item(Item(NORMAL, 0, 0));
+    item.updateQuality();
+    EXPECT_EQ(NORMAL, Item(item).name);
+    EXPECT_EQ(-1, Item(item).sellIn);
+    EXPECT_EQ(0, Item(item).quality);
 }
 
-TEST(GildedRoseTest, NormalItemWithSellinGtZeroAndQualityZero)
+TEST(NormalItemTest, NormalItemWithSellinGtZeroAndQualityZero)
 {
-    vector<Item> items;
-    items.push_back(Item(NORMAL, 22, 0));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(21, app.items[0].sellIn);
-    EXPECT_EQ(0, app.items[0].quality);
+
+    NormalItem item(Item(NORMAL, 22, 0));
+    item.updateQuality();
+    EXPECT_EQ(NORMAL, Item(item).name);
+    EXPECT_EQ(21,  Item(item).sellIn);
+    EXPECT_EQ(0,  Item(item).quality);
 }
 
-TEST(GildedRoseTest, NormalItemWithSellinGtZeroAndQualityGtZero)
+TEST(NormalItemTest, NormalItemWithSellinGtZeroAndQualityGtZero)
 {
-    vector<Item> items;
-    items.push_back(Item(NORMAL, 22, 23));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(21, app.items[0].sellIn);
-    EXPECT_EQ(22, app.items[0].quality);
+
+    NormalItem item(Item(NORMAL, 22, 23));
+    item.updateQuality();
+    EXPECT_EQ(NORMAL,  Item(item).name);
+    EXPECT_EQ(21,  Item(item).sellIn);
+    EXPECT_EQ(22,  Item(item).quality);
 }
 
-TEST(GildedRoseTest, NormalItemWithSellinLtZeroAndQualityGtZero)
+TEST(NormalItemTest, NormalItemWithSellinLtZeroAndQualityGtZero)
 {
-    vector<Item> items;
-    items.push_back(Item(NORMAL, -1, 23));
-    GildedRose app(items);
-    app.updateQuality();
-    EXPECT_EQ(NORMAL, app.items[0].name);
-    EXPECT_EQ(-2, app.items[0].sellIn);
-    EXPECT_EQ(21, app.items[0].quality);
+
+    NormalItem item(Item(NORMAL, -1, 23));
+    item.updateQuality();
+    EXPECT_EQ(NORMAL,  Item(item).name);
+    EXPECT_EQ(-2,  Item(item).sellIn);
+    EXPECT_EQ(21,  Item(item).quality);
 }
