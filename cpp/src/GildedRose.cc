@@ -1,5 +1,6 @@
 #include "GildedRose.h"
 #include "NormalItem.h"
+#include "SulfurasItem.h"
 
 static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
 static const char* AGED_BRIE="Aged Brie";
@@ -40,10 +41,6 @@ void UpdateConjuredItemQuality(Item& item)
             item.quality = item.quality - 2;
         }
     }
-}
-
-void UpdateSulfurasQuality(Item& item)
-{
 }
 
 void UpdateAgedBrieQuality(Item& item)
@@ -100,7 +97,10 @@ void GildedRose::updateItemQuality(Item& item)
 {
     if (item.name == SULFRAS)
     {
-        return UpdateSulfurasQuality(item);
+        SulfurasItem sulfuras_item(item);
+        sulfuras_item.updateQuality();
+        item = sulfuras_item;
+        return;
     }
 
     if (item.name == AGED_BRIE)
