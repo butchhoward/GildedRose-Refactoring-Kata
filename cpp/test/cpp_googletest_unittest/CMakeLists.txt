@@ -4,6 +4,7 @@ target_sources(${TEST_NAME} PRIVATE
     GildedRoseGoogletestUnitTests.cc
     NormalItem_tests.cc
     SulfurasItem_tests.cc
+    ConjuredItem_tests.cc
 )
 target_link_libraries(${TEST_NAME} src gtest gtest_main)
 set_property(TARGET ${TEST_NAME} PROPERTY CXX_STANDARD 11)
