@@ -24,8 +24,8 @@ public:
     }
 
 protected:
-    virtual void updateQuality() {};
-    virtual void updateSellIn() {}
+    virtual void updateQuality() = 0;
+    virtual void updateSellIn() = 0;
 
 
     Item item;

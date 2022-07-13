@@ -19,3 +19,8 @@ void AgedBrieItem::updateQuality()
         }
     }
 }
+
+void AgedBrieItem::updateSellIn()
+{
+
+}

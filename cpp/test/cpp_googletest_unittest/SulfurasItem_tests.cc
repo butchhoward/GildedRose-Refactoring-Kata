@@ -7,7 +7,7 @@ static const char* SULFRAS="Sulfuras, Hand of Ragnaros";
 TEST(SulfurasItemTest, SulfurasItemWithSellinGtZeroAndQualityZero)
 {
     SulfurasItem item( 22, 0);
-    item.updateQuality();
+    item.updateItem();
     EXPECT_EQ(SULFRAS, Item(item).name);
     EXPECT_EQ(22, Item(item).sellIn);
     EXPECT_EQ(0, Item(item).quality);
@@ -16,7 +16,7 @@ TEST(SulfurasItemTest, SulfurasItemWithSellinGtZeroAndQualityZero)
 TEST(SulfurasItemTest, SulfurasItemWithSellinGtZeroAndQualityGtZero)
 {
     SulfurasItem item( 22, 23);
-    item.updateQuality();
+    item.updateItem();
     EXPECT_EQ(SULFRAS, Item(item).name);
     EXPECT_EQ(22, Item(item).sellIn);
     EXPECT_EQ(23, Item(item).quality);
@@ -25,7 +25,7 @@ TEST(SulfurasItemTest, SulfurasItemWithSellinGtZeroAndQualityGtZero)
 TEST(SulfurasItemTest, SulfrasItemWithSellLtZeroinAndQualityGt0)
 {
     SulfurasItem item( -5, 40);
-    item.updateQuality();
+    item.updateItem();
     EXPECT_EQ(SULFRAS, Item(item).name);
     EXPECT_EQ(-5, Item(item).sellIn);
     EXPECT_EQ(40, Item(item).quality);

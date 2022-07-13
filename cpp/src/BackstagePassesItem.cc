@@ -33,3 +33,8 @@ void BackstagePassesItem::updateQuality()
         item.quality = item.quality - item.quality;
     }
 }
+
+void BackstagePassesItem::updateSellIn()
+{
+
+}

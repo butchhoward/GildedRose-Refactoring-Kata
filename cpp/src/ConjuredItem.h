@@ -20,10 +20,12 @@ public:
 
     }
 
-    void updateQuality();
-
 
     static std::string ITEM_NAME;
+
+protected:
+    virtual void updateQuality();
+    virtual void updateSellIn();
 
 };
 

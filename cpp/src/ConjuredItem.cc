@@ -21,3 +21,8 @@ void ConjuredItem::updateQuality()
     }
 
 }
+
+void ConjuredItem::updateSellIn()
+{
+
+}
