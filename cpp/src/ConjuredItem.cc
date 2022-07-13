@@ -10,7 +10,6 @@ void ConjuredItem::updateQuality()
         item.quality = item.quality - 2;
     }
 
-    item.sellIn = item.sellIn - 1;
 
     if (item.sellIn < 0)
     {
@@ -24,5 +23,5 @@ void ConjuredItem::updateQuality()
 
 void ConjuredItem::updateSellIn()
 {
-
+    item.sellIn = item.sellIn - 1;
 }
