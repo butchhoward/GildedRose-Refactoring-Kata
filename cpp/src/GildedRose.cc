@@ -40,7 +40,7 @@ std::unique_ptr<NamedItem> item_producer(const Item& item)
 void updateItemQuality(Item& item)
 {
     auto named_item = item_producer(item);
-    named_item->updateQuality();
+    named_item->updateItem();
     item = Item(*named_item);
 }
 

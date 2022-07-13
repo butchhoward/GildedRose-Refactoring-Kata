@@ -15,8 +15,8 @@ public:
     {
 
     }
+    void updateItem();
 
-    virtual void updateQuality() = 0;
 
     operator Item() const
     {
@@ -24,6 +24,10 @@ public:
     }
 
 protected:
+    virtual void updateQuality() {};
+    virtual void updateSellIn() {}
+
+
     Item item;
 };
 

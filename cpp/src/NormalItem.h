@@ -14,7 +14,9 @@ public:
 
     }
 
+protected:
     virtual void updateQuality();
+    virtual void updateSellIn();
 
 };
 
